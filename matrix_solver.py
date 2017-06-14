@@ -135,7 +135,29 @@ class Matrix:
     def swap_rows(self, row1_num, row2_num):
         """
         swap 2 rows in a matrix
+
+        @type row1_num: int
+        @type row2_num: int
+        @rtype: None | print
+
+        >>> c = Matrix([[1, 2], [3, 4]], [[1],[2]], True )
+        >>> c.swap_rows(2, 1)
+
         """
+        temp = self.arr[row1_num-1][:]
+        self.arr[row1_num - 1] = self.arr[row2_num-1]
+        self.arr[row2_num - 1] = temp
+
+        if self.augment is not None:
+            temp2 = self.augment[row1_num - 1][:]
+            self.augment[row1_num - 1] = self.augment[row2_num - 1]
+            self.augment[row2_num - 1] = temp2
+
+        if self.latex:
+            opertation = ('\\xrightarrow[]{ r_' + str(row1_num) +
+                          ' \\leftrightarrow ' + 'r_' + str(row2_num) + ' }')
+            print(opertation)
+            print(self)
 
     def __str__(self):
         """
@@ -177,15 +199,9 @@ class Matrix:
         output += '\\end{array} \n\\right]'
         return output
 
-#def REF(arr, augment):
-
-#def RREF():
-
-
-
 
 if __name__ == "__main__":
     import python_ta
-    python_ta.check_all(config='pylint.txt')
+    python_ta.check_all()
     import doctest
     doctest.testmod()
